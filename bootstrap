@@ -1,5 +1,6 @@
 if [ $SPIN ]; then
   ln -sf ~/dotfiles/.aliases ~/.aliases
   ln -sf ~/dotfiles/.functions ~/.functions
-  # ln -sf ~/dotfiles/.gitconfig ~/.gitconfig
+  source ~/.functions
+  source ~/.aliases
 fi
