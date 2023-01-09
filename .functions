@@ -42,6 +42,9 @@ gcb() {
 	git checkout -b $1
 }
 
+gcs() {
+	rake dev:gcs:upload FILEPATH=$1
+}
 
 git_rebase_master(){
 	git checkout master
