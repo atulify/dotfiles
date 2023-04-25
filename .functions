@@ -1,17 +1,5 @@
-shop_reenable() {
-	dev up
-	dev integration enable online-store-web
-}
 
-run() {
-	dev up && dev s
-}
-
-migrate() {
-	rails db:migrate RAILS_ENV=$1
-}
-
-clean() {
+cleanup() {
 	dev style --include-branch-commits && bundle exec srb tc && dev test
 }
 
@@ -19,17 +7,18 @@ gl() {
 	git log -n 5
 }
 
-master() {
+ms() {
 	git fetch origin master
 	git checkout -B master origin/master
 }
 
-gr() {
-        git rebase HEAD~$1 -i --autosquash
+main() {
+	git fetch origin main
+	git checkout -B main origin/main
 }
 
-fix() {
-	git commit --fixup $1
+squash() {
+        git rebase HEAD~$1 -i --autosquash
 }
 
 gfixup() {
@@ -37,123 +26,12 @@ gfixup() {
 	git rebase --interactive --autosquash $1~1
 }
 
-
 gcb() {
 	git checkout -b $1
 }
 
 gcs() {
 	rake dev:gcs:upload FILEPATH=$1
-}
-
-git_rebase_master(){
-	git checkout master
-	git pull origin master
-	git checkout $1
-	git rebase master
-	git push --force-with-lease
-}
-
-
-git_rebase_master_adv(){
-	git fetch && git rebase origin/master
-	git push --force-with-lease
-}
-
-git_file_move_commit() {
-	~/workspace/utilities/git-mv-changes/mv-changes $1 $2 $3
-}
-
-ngrok_ps() {
-	ngrok http 192.168.64.1:40239 --subdomain=slingshotting
-}
-
-ngrok_pt() {
-	ngrok http 192.168.64.1:58822 --subdomain=slingshotting
-}
-
-seller() {
-	dev seed seller_create --shop_id=$1
-}
-
-buyer() {
-	dev seed buyer_create --email=$1 --phone=$2
-}
-
-underwrite() {
-	if [ -z "$3" ]; then
-    		echo "Application Approved"
-		dev seed agreement_underwrite --seller_id=$1 --buyer_id=$2
-	else
-		echo "Applicaiton $3"
-		dev seed agreement_underwrite --seller_id=$1 --buyer_id=$2 --application_result=$3
-	fi
-}
-
-approve() {
-        if [ -z "$1" ]; then
-                echo "Approve Agreement"
-		dev seed update_approved_agreement
-        else
-                echo "Approve Applicaiton $1"
-                dev seed update_approved_agreement --agreement_id=$1
-        fi
-}
-
-new_buyer() {
-	DEV_PHONE="+1 780$(shuf -i 1000000-9999999 -n1)" && DEV_EMAIL="atul-dev-$(echo $DEV_PHONE | md5)@shopify.com" && echo "Phone: $DEV_PHONE, Email: $DEV_EMAIL"
-}
-
-encrypt_prod() {
-	ejson encrypt config/secrets.production.ejson
-}
-
-installment_core_reset() {
-
-	bundle exec rake dev:shopify_payments:setup SHOP_ID=1 COUNTRY=US && bundle exec rake dev:betas:enable SHOP_ID=1 BETA=shopify_pay_login,shopify_pay_use_shop_app_domain,shopify_installments && bundle exec rake dev:payment_terms:onboard SHOP_ID=1 SELLER_ID=1 
-
-	dev s
-}	
-
-installments_pay_reset() {
-	bundle exec rake db:setup && bin/rails db:seed:replant
-
-}
-
-installments_ps_pt_reset() {
-	ps
-	master
-	dev reset-railgun
-	pt
-	master
-	dev reset-railgun
-}
-
-installments_ps_reset() {
-	dev reset-railgun
-}
-
-installmentpt_reset() {
-	dev reset-railgun
-	seller 1
-}
-
-update_installments_dashboard() {
-	dev cd dog
-	master
-	git checkout -b update-installments-dashboard
-	bin/doggy pull 5a8-rv6-qpg
-}
-
-restart_cardserver() {
-	dev cd cardserver
-	dev sv stop ShopifyUS/cardserver
-	dev sv start ShopifyUS/cardserver
-}
-
-fix_core() {
-	dev cd shopify
-  	sed -i '' 's,https://github.com/ilikenwf/nestedSortable.git#0187fa831b5bb68730d336528ce3268d2f10cbcc,1.3.4,g' app/assets/javascripts/admin/package.json
 }
 
 sha256() {
