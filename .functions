@@ -167,3 +167,7 @@ lhm() {
 empty() {
   git commit --allow-empty -m ""
 }
+
+update() {
+  git pull && update
+}
