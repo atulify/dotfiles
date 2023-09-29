@@ -18,7 +18,7 @@ main() {
 }
 
 squash() {
-        git rebase --interactive --autosquash $1~1
+        git rebase --interactive --autosquash HEAD~$1
 }
 
 gfixup() {
