@@ -3,8 +3,8 @@ cleanup() {
 	dev style --include-branch-commits && bundle exec srb tc && dev test
 }
 
-gl() {
-	git log -n 5
+squash() {
+        git rebase --interactive --autosquash HEAD~$1
 }
 
 ms() {
@@ -17,9 +17,6 @@ main() {
 	git checkout -B main origin/main
 }
 
-squash() {
-        git rebase --interactive --autosquash HEAD~$1
-}
 
 gfixup() {
 	git commit --fixup $1
@@ -30,8 +27,8 @@ gcb() {
 	git checkout -b $1
 }
 
-gcs() {
-	rake dev:gcs:upload FILEPATH=$1
+gl() {
+	git log -n 5
 }
 
 sha256() {
