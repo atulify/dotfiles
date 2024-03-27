@@ -1,3 +1,10 @@
+1p() {
+        bin/rake dev:shop_promise:spin_constellation_setup_1p
+}
+
+3p() {
+	bin/rake dev:shop_promise:spin_constellation_setup_3p
+}
 
 cleanup() {
 	dev style --include-branch-commits && bundle exec srb tc && dev test
