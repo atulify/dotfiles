@@ -1,11 +1,3 @@
-1p() {
-        bin/rake dev:shop_promise:spin_constellation_setup_1p
-}
-
-3p() {
-	bin/rake dev:shop_promise:spin_constellation_setup_3p
-}
-
 cleanup() {
 	dev style --include-branch-commits && bundle exec srb tc && dev test
 }
@@ -14,10 +6,6 @@ squash() {
         git rebase --interactive --autosquash HEAD~$1
 }
 
-ms() {
-	git fetch origin master
-	git checkout -B master origin/master
-}
 
 main() {
 	git fetch origin main
