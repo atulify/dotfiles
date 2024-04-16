@@ -12,3 +12,6 @@ alias sorbet='bin/srb typecheck'
 alias packwerk='bin/packwerk update-todo'
 alias split='git reset HEAD~'
 alias rbi='dev rbi dsl'
+alias 1p='bin/rake dev:shop_promise:spin_constellation_setup_1p'
+alias 3p='bin/rake dev:shop_promise:spin_constellation_setup_3p'
+
