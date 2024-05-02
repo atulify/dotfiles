@@ -1,8 +1,16 @@
 #!/bin/bash
 
-if [ $SPIN ]; then
-  ln -sf ~/dotfiles/.aliases ~/.aliases
-  ln -sf ~/dotfiles/.functions ~/.functions
+# so you have good debug information
+set -eux
+
+# dumping the environment just to see what's going on
+env
+
+dotfiles_root=$(pwd -P)
+
+if [ "$SPIN" ]; then
+  ln -sf ${dotfiles_root}/.aliases ~/.aliases
+  ln -sf ${dotfiles_root}/.functions ~/.functions
   source ~/.functions
   source ~/.aliases
 fi
