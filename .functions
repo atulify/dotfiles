@@ -30,14 +30,6 @@ sha256() {
   echo "$1  $2" | shasum -a 256 -c
 }
 
-lhm() { 
-  bin/rails generate lhm $1
-}
-
 empty() {
   git commit --allow-empty -m ""
-}
-
-update() {
-  git pull && update
 }
