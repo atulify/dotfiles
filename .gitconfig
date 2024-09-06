@@ -21,7 +21,7 @@
   autoSquash = true
 
 [core]
-  editor = code --wait
+  editor = cursor --wait --reuse-window
   excludesfile = /Users/atulsharma/.gitignore_global
   pager = diff-so-fancy | less --tabs=4 -RFX
   commitGraph = true
