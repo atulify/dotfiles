@@ -6,6 +6,12 @@ set -eux
 # dumping the environment just to see what's going on
 env
 
+# Cursor dotfiles
+git clone https://github.com/shopify/cursor-dotfiles ~/shopify-dotfiles/cursor-dotfiles
+
+chmod +x ~/shopify-dotfiles/cursor-dotfiles/install.sh
+~/shopify-dotfiles/cursor-dotfiles/install.sh
+
 dotfiles_root=$(pwd -P)
 
 if [ "$SPIN" ]; then
